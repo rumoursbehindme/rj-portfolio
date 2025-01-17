@@ -4,10 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Rajeev Hegde - Software Engineer Portfolio showcasing projects and skills in Node.js, React, and TypeScript">
     <title>Rajeev Hegde - Portfolio</title>
-    <link rel="icon"
-        href="https://thumbs.dreamstime.com/b/letter-r-blue-fire-flames-black-isolated-background-realistic-effect-sparks-part-alphabet-set-157762829.jpg"
-        type="image/png">
+    <link rel="icon" href="https://thumbs.dreamstime.com/b/letter-r-blue-fire-flames-black-isolated-background-realistic-effect-sparks-part-alphabet-set-157762829.jpg" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
     <style>
         * {
             margin: 0;
@@ -15,25 +15,69 @@
             box-sizing: border-box;
         }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #121212;
-            color: #e0e0e0;
-            scroll-behavior: smooth;
+        :root {
+            --primary-color: #66b2ff;
+            --background-color: #121212;
+            --card-background: #1e1e1e;
+            --text-color: #e0e0e0;
+            --header-background: #1f1f1f;
         }
 
-        .image-container {
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 80px;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        /* Improved Loading Animation */
+        .loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--background-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        .loading::after {
+            content: '';
             width: 50px;
             height: 50px;
+            border: 5px solid #ffffff;
+            border-top-color: var(--primary-color);
+            border-radius: 50%;
+            animation: loading 0.75s ease infinite;
+        }
+
+        @keyframes loading {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Enhanced Image Container */
+        .image-container {
+            width: 60px;
+            height: 60px;
             overflow: hidden;
             border-radius: 50%;
-            border: 4px solid #66b2ff;
-            box-shadow: 0 0 10px rgba(102, 178, 255, 0.5);
+            border: 4px solid var(--primary-color);
+            box-shadow: 0 0 20px rgba(102, 178, 255, 0.3);
             position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: transform 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         .zoomed-image {
@@ -42,14 +86,16 @@
             transform: scale(1.7);
             position: relative;
             left: 14%;
-            transition: left 0.3s;
+            transition: all 0.4s ease;
         }
 
         .image-container:hover {
             cursor: pointer;
-            transform: scale(1.5);
+            transform: scale(1.2) rotate(5deg);
+            box-shadow: 0 0 30px rgba(102, 178, 255, 0.5);
         }
 
+        /* Improved Modal */
         .modal {
             display: none;
             position: fixed;
@@ -58,100 +104,201 @@
             top: 0;
             width: 100%;
             height: 100%;
-            overflow: auto;
-            background-color: rgba(0, 0, 0, 0.8);
+            background-color: rgba(0, 0, 0, 0.9);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal.show {
+            opacity: 1;
         }
 
         .modal-content {
             margin: 15% auto;
             padding: 20px;
-            max-width: 300px;
+            max-width: 400px;
+            transform: scale(0.7);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .modal.show .modal-content {
+            transform: scale(1);
+            opacity: 1;
         }
 
         .modal-content img {
             width: 100%;
             height: auto;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
         }
 
         .close {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
+            position: absolute;
+            right: 25px;
+            top: 15px;
+            color: #fff;
+            font-size: 35px;
             font-weight: bold;
-        }
-
-        .close:hover,
-        .close:focus {
-            color: white;
-            text-decoration: none;
             cursor: pointer;
+            transition: all 0.3s ease;
         }
 
+        .close:hover {
+            color: var(--primary-color);
+            transform: rotate(90deg);
+        }
+
+        /* Enhanced Header */
         header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 10%;
-            background-color: #1f1f1f;
+            padding: 15px 10%;
+            background-color: var(--header-background);
             position: sticky;
             top: 0;
             z-index: 100;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        header.scrolled {
+            padding: 10px 10%;
+            background-color: rgba(31, 31, 31, 0.95);
         }
 
         header h1 {
-            color: #66b2ff;
-            padding-inline-start: 15px;
+            color: var(--primary-color);
+            padding-left: 20px;
+            font-size: 1.8em;
+            text-shadow: 0 0 10px rgba(102, 178, 255, 0.3);
+        }
+
+        /* Improved Navigation */
+        nav {
+            display: flex;
+            gap: 20px;
         }
 
         nav a {
-            color: #66b2ff;
-            margin: 0 15px;
+            color: var(--primary-color);
             text-decoration: none;
             font-size: 1.1em;
             font-weight: 500;
-            transition: color 0.3s;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-color);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        nav a:hover::after {
+            width: 100%;
         }
 
         nav a:hover {
             color: #ffffff;
+            background-color: rgba(102, 178, 255, 0.1);
         }
 
+        /* Enhanced Sections */
         section {
-            padding: 50px 10%;
+            padding: 80px 10%;
+            position: relative;
+        }
+
+        section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at top right, rgba(102, 178, 255, 0.1), transparent);
+            pointer-events: none;
         }
 
         h2 {
-            color: #66b2ff;
-            margin-bottom: 20px;
-            font-size: 2em;
+            color: var(--primary-color);
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            text-align: center;
+            position: relative;
+            padding-bottom: 15px;
         }
 
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: var(--primary-color);
+            border-radius: 2px;
+        }
+
+        /* Improved Grid Layouts */
         .projects,
         .skills,
         .experience,
         .education {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 40px;
+            margin-top: 40px;
         }
 
+        /* Enhanced Cards */
         .card {
-            background-color: #1e1e1e;
-            border-radius: 8px;
-            padding: 20px;
-            transition: transform 0.3s;
-            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.5);
+            background-color: var(--card-background);
+            border-radius: 15px;
+            padding: 25px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(102, 178, 255, 0.1);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(102, 178, 255, 0.03));
+            pointer-events: none;
         }
 
         .card:hover {
-            transform: translateY(-10px);
+            transform: translateY(-15px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            border-color: rgba(102, 178, 255, 0.3);
         }
 
+        /* Improved Slideshow */
         .slideshow-container {
             position: relative;
-            height: 200px;
+            height: 250px;
             overflow: hidden;
+            border-radius: 10px;
+            margin-bottom: 20px;
         }
 
         .slideshow-container img {
@@ -160,67 +307,207 @@
             object-fit: cover;
             position: absolute;
             opacity: 0;
-            transition: opacity 1s;
+            transition: opacity 0.5s ease-in-out;
+            border-radius: 10px;
         }
 
-        .active {
+        .slideshow-container img.active {
             opacity: 1;
         }
 
+        /* Enhanced Card Content */
         .card h3 {
             color: #ffffff;
-            margin: 10px 0;
-            padding: 0 10px;
+            margin: 15px 0;
+            font-size: 1.4em;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .card h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background: var(--primary-color);
         }
 
         .card p {
             color: #a0a0a0;
-            padding: 0 10px;
+            line-height: 1.6;
+            margin-bottom: 15px;
         }
 
-        a.github-link {
+        /* Improved Links */
+        .github-link {
             display: inline-block;
-            margin-top: 10px;
-            color: #66b2ff;
+            margin-top: 15px;
+            color: var(--primary-color);
             text-decoration: none;
             font-weight: bold;
+            padding: 8px 15px;
+            border: 2px solid var(--primary-color);
+            border-radius: 5px;
+            transition: all 0.3s ease;
         }
 
+        .github-link:hover {
+            background-color: var(--primary-color);
+            color: #ffffff;
+            transform: translateY(-2px);
+        }
+
+        /* Enhanced Footer */
         footer {
-            background-color: #1f1f1f;
+            background-color: var(--header-background);
             text-align: center;
-            padding: 20px;
-            margin-top: 50px;
+            padding: 40px 20px;
+            margin-top: 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
         }
 
         footer p {
             color: #a0a0a0;
+            margin-bottom: 20px;
         }
 
+        /* Improved Social Icons */
         .social-icons {
-            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin: 30px 0;
         }
 
         .social-icons a {
-            display: inline-block;
-            margin: 0 10px;
-            transition: transform 0.3s;
-        }
-
-        .social-icons a img {
-            width: 30px;
-            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background-color: rgba(102, 178, 255, 0.1);
+            transition: all 0.3s ease;
         }
 
         .social-icons a:hover {
-            transform: scale(1.2);
+            transform: translateY(-5px) rotate(360deg);
+            background-color: var(--primary-color);
+        }
+
+        .social-icons img {
+            width: 24px;
+            height: 24px;
+            transition: all 0.3s ease;
+        }
+
+        .social-icons a:hover img {
+            filter: brightness(0) invert(1);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                padding: 15px 5%;
+            }
+
+            nav {
+                margin-top: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            section {
+                padding: 60px 5%;
+            }
+
+            .card {
+                margin: 0 10px;
+            }
+
+            .slideshow-container {
+                height: 200px;
+            }
+        }
+
+        /* Scroll to Top Button */
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 45px;
+            height: 45px;
+            background-color: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 99;
+        }
+
+        .scroll-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-top::before {
+            content: '↑';
+            color: #ffffff;
+            font-size: 20px;
+        }
+
+        .scroll-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 20px rgba(102, 178, 255, 0.5);
+        }
+
+        /* Skills Tags */
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .skill-tag {
+            background-color: rgba(102, 178, 255, 0.1);
+            color: var(--primary-color);
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.9em;
+            transition: all 0.3s ease;
+        }
+
+        .skill-tag:hover {
+            background-color: var(--primary-color);
+            color: #ffffff;
+            transform: translateY(-2px);
         }
     </style>
 </head>
 
 <body>
+    <div class="loading" id="loading"></div>
 
-    <header>
+    <header id="header">
         <div style="display: flex; align-items: center;">
             <div class="image-container">
                 <img src="my-image.jfif" alt="Rajeev Hegde" class="zoomed-image" id="profileImage">
@@ -241,149 +528,241 @@
             <img id="fullImage" src="" alt="Full-PIC">
         </div>
     </div>
-    <section id="projects">
+
+    <section id="projects" data-aos="fade-up">
         <h2>Projects</h2>
         <div class="projects">
-            <div class="card">
+            <div class="card" data-aos="fade-up" data-aos-delay="100">
                 <div class="slideshow-container">
                     <img src="r15-music/playlists.png" alt="R15Music Project" class="active">
                     <img src="r15-music/trending-grid.png" alt="R15Music Project">
                     <img src="r15-music/trending-list.png" alt="R15Music Project">
                 </div>
                 <h3>R15Music</h3>
-                <p>A music player application featuring playlists, trending music, and a user-friendly interface built
-                    with React and Node.js</p>
-                <a href="https://github.com/rumoursbehindme/fastify-server" target="_blank" class="github-link">GitHub
-                    Repository</a>
+                <p>A modern music player application featuring playlists, trending music, and a user-friendly interface.</p>
+                <div class="skill-tags">
+                    <span class="skill-tag">React</span>
+                    <span class="skill-tag">Node.js</span>
+                    <span class="skill-tag">Express</span>
+                </div>
+                <a href="https://github.com/rumoursbehindme/fastify-server" target="_blank" rel="noopener noreferrer" class="github-link">View Project</a>
             </div>
-            <div class="card">
+
+            <div class="card" data-aos="fade-up" data-aos-delay="200">
                 <div class="slideshow-container">
                     <img src="serve-yaml/syc.png" alt="Serve-YAML Project" class="active">
                     <img src="serve-yaml/syc2.png" alt="Serve-YAML Project">
                     <img src="serve-yaml/syc3.png" alt="Serve-YAML Project">
                 </div>
                 <h3>Serve-YAML</h3>
-                <p>A Node.js package to serve YAML as JSON objects, simplifying configuration management.
-                    And also this is maintained as NPM package.
-                </p>
-                <a href="https://github.com/rumoursbehindme/serve-yaml" target="_blank" class="github-link">GitHub
-                    Repository</a>
+                <p>A powerful Node.js package to serve YAML as JSON objects, simplifying configuration management.</p>
+                <div class="skill-tags">
+                    <span class="skill-tag">Node.js</span>
+                    <span class="skill-tag">NPM Package</span>
+                    <span class="skill-tag">YAML</span>
+                </div>
+                <a href="https://github.com/rumoursbehindme/serve-yaml" target="_blank" rel="noopener noreferrer" class="github-link">View Project</a>
             </div>
-            <div class="card">
+
+            <div class="card" data-aos="fade-up" data-aos-delay="300">
                 <div class="slideshow-container">
-                    <img src="https://via.placeholder.com/600x400?text=Project+3+Image+1" alt="Project 3"
-                        class="active">
+                    <img src="https://via.placeholder.com/600x400?text=Project+3+Image+1" alt="Project 3" class="active">
                     <img src="https://via.placeholder.com/600x400?text=Project+3+Image+2" alt="Project 3">
                     <img src="https://via.placeholder.com/600x400?text=Project+3+Image+3" alt="Project 3">
                 </div>
-                <h3>Project 3</h3>
-                <p>A placeholder for your next amazing project. Update this section with your next project details.</p>
-                <a href="https://github.com/your-username/project3" target="_blank" class="github-link">GitHub
-                    Repository</a>
+                <h3>Coming Soon</h3>
+                <p>An exciting new project in development. Stay tuned for updates!</p>
+                <div class="skill-tags">
+                    <span class="skill-tag">Coming Soon</span>
+                </div>
             </div>
         </div>
     </section>
 
-    <section id="skills">
+    <section id="skills" data-aos="fade-up">
         <h2>Skills</h2>
         <div class="skills">
-            <div class="card">
+            <div class="card" data-aos="fade-up" data-aos-delay="100">
                 <h3>Languages & Frameworks</h3>
-                <p>JavaScript, Node.js, Fastify, React.js, TypeScript</p>
+                <div class="skill-tags">
+                    <span class="skill-tag">JavaScript</span>
+                    <span class="skill-tag">TypeScript</span>
+                    <span class="skill-tag">Node.js</span>
+                    <span class="skill-tag">React.js</span>
+                    <span class="skill-tag">Fastify</span>
+                </div>
             </div>
-            <div class="card">
+            <div class="card" data-aos="fade-up" data-aos-delay="200">
                 <h3>Tools & Technologies</h3>
-                <p>Git, Docker, MongoDB, Helmet</p>
+                <div class="skill-tags">
+                    <span class="skill-tag">Git</span>
+                    <span class="skill-tag">Docker</span>
+                    <span class="skill-tag">MongoDB</span>
+                    <span class="skill-tag">Helmet</span>
+                </div>
             </div>
         </div>
     </section>
 
-    <section id="experience">
+    <section id="experience" data-aos="fade-up">
         <h2>Experience</h2>
         <div class="experience">
-            <div class="card">
+            <div class="card" data-aos="fade-up" data-aos-delay="100">
                 <h3>Software Engineer</h3>
-                <p> Working at: <a href="https://www.agilepoint.com/" target="_blank" class="github-link">Agilepoint
-                        Software, India Pvt ltd.</a>
-                </p>
-
-                <p>
-                    Current Role: Backend development using Node.js, Fastify, TypeScript, with a focus on security and
-                    performance.
-                </p>
+                <p>Currently working at: <a href="https://www.agilepoint.com/" target="_blank" rel="noopener noreferrer" class="github-link">Agilepoint Software, India Pvt ltd.</a></p>
+                <p>Specializing in backend development using Node.js, Fastify, and TypeScript, with a strong focus on security and performance optimization.</p>
+                <div class="skill-tags">
+                    <span class="skill-tag">Node.js</span>
+                    <span class="skill-tag">Fastify</span>
+                    <span class="skill-tag">TypeScript</span>
+                    <span class="skill-tag">Security</span>
+                </div>
             </div>
         </div>
     </section>
 
-    <section id="education">
+    <section id="education" data-aos="fade-up">
         <h2>Education</h2>
         <div class="education">
-            <div class="card">
+            <div class="card" data-aos="fade-up" data-aos-delay="100">
                 <h3>Masters in Computer Application</h3>
                 <p>Bangalore University, 2022</p>
+                <div class="skill-tags">
+                    <span class="skill-tag">Computer Science</span>
+                    <span class="skill-tag">Software Development</span>
+                </div>
             </div>
         </div>
     </section>
 
     <footer>
-        <p>Connect with me on:</p>
+        <p>Let's Connect!</p>
         <div class="social-icons">
-            <a href="https://www.instagram.com/rumoursbehindme2.0" target="_blank">
+            <a href="https://www.instagram.com/rumoursbehindme2.0" target="_blank" rel="noopener noreferrer">
                 <img src="https://cdn-icons-png.flaticon.com/512/1384/1384063.png" alt="Instagram">
             </a>
-            <a href="https://www.linkedin.com/in/rumoursbehindme" target="_blank">
+            <a href="https://www.linkedin.com/in/rumoursbehindme" target="_blank" rel="noopener noreferrer">
                 <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn">
             </a>
-            <a href="https://github.com/rumoursbehindme" target="_blank">
+            <a href="https://github.com/rumoursbehindme" target="_blank" rel="noopener noreferrer">
                 <img src="https://cdn-icons-png.flaticon.com/512/733/733553.png" alt="GitHub">
             </a>
         </div>
-        <p>&copy; 2024 Rajeev Hegde</p>
+        <p>&copy; 2024 Rajeev Hegde. All rights reserved.</p>
     </footer>
 
+    <div class="scroll-top" id="scrollTop"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 800,
+            once: true
+        });
+
+        // Remove loading screen
+        window.addEventListener('load', () => {
+            const loading = document.getElementById('loading');
+            loading.style.opacity = '0';
+            setTimeout(() => {
+                loading.style.display = 'none';
+            }, 500);
+        });
+
+        // Profile Image Modal
         const profileImage = document.getElementById('profileImage');
         const modal = document.getElementById('imageModal');
         const fullImage = document.getElementById('fullImage');
         const closeModal = document.getElementsByClassName('close')[0];
 
-        profileImage.onclick = function () {
+        profileImage.onclick = function() {
             modal.style.display = "block";
-            fullImage.src = profileImage.src; // Set the full image source
+            fullImage.src = profileImage.src;
+            setTimeout(() => {
+                modal.classList.add('show');
+            }, 10);
         }
 
-        closeModal.onclick = function () {
-            modal.style.display = "none";
-        }
-
-        window.onclick = function (event) {
-            if (event.target == modal) {
+        closeModal.onclick = function() {
+            modal.classList.remove('show');
+            setTimeout(() => {
                 modal.style.display = "none";
+            }, 300);
+        }
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.classList.remove('show');
+                setTimeout(() => {
+                    modal.style.display = "none";
+                }, 300);
             }
         }
 
-        const slideshows = document.querySelectorAll('.slideshow-container');
+        // Header Scroll Effect
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
 
+        // Slideshow
+        const slideshows = document.querySelectorAll('.slideshow-container');
         slideshows.forEach((slideshow) => {
             const images = slideshow.querySelectorAll('img');
             let currentIndex = 0;
 
             function showSlides() {
-                images.forEach((img, index) => {
+                images.forEach(img => {
                     img.classList.remove('active');
-                    img.style.opacity = '0'; // Hide all images
+                    img.style.opacity = '0';
                 });
                 images[currentIndex].classList.add('active');
-                images[currentIndex].style.opacity = '1'; // Show the current image
+                images[currentIndex].style.opacity = '1';
                 currentIndex = (currentIndex + 1) % images.length;
             }
 
-            setInterval(showSlides, 2000); // Change slide every 2 seconds
-            showSlides(); // Show the first image immediately
+            setInterval(showSlides, 3000);
+            showSlides();
         });
 
-    </script>
+        // Scroll to Top Button
+        const scrollTop = document.getElementById('scrollTop');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 500) {
+                scrollTop.classList.add('show');
+            } else {
+                scrollTop.classList.remove('show');
+            }
+        });
 
+        scrollTop.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Smooth Scroll for Navigation Links
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                const headerHeight = document.querySelector('header').offsetHeight;
+                const targetPosition = targetElement.offsetTop - headerHeight;
+
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
 </body>
 
 </html>
