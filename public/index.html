@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Rajeev Hegde - Software Engineer Portfolio showcasing projects and skills in Node.js, React, and TypeScript">
+    <meta name="description"
+        content="Rajeev Hegde - Software Engineer Portfolio showcasing projects and skills in Node.js, React, and TypeScript">
     <title>Rajeev Hegde - Portfolio</title>
-    <link rel="icon" href="https://thumbs.dreamstime.com/b/letter-r-blue-fire-flames-black-isolated-background-realistic-effect-sparks-part-alphabet-set-157762829.jpg" type="image/png">
+    <link rel="icon"
+        href="https://thumbs.dreamstime.com/b/letter-r-blue-fire-flames-black-isolated-background-realistic-effect-sparks-part-alphabet-set-157762829.jpg"
+        type="image/png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
     <style>
         * {
@@ -20,6 +24,7 @@
             --card-background: #1e1e1e;
             --text-color: #e0e0e0;
             --header-background: #1f1f1f;
+            --website-color: hsl(47, 100%, 51%);
         }
 
         html {
@@ -358,6 +363,24 @@
             transform: translateY(-2px);
         }
 
+        .website-link {
+            display: inline-block;
+            margin-top: 15px;
+            color: var(--website-color);
+            text-decoration: none;
+            font-weight: bold;
+            padding: 8px 15px;
+            border: 2px solid var(--website-color);
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .website-link:hover {
+            background-color: var(--website-color);
+            color: #ffffff;
+            transform: translateY(-2px);
+        }
+
         /* Enhanced Footer */
         footer {
             background-color: var(--header-background);
@@ -502,6 +525,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="loading" id="loading"></div>
 
@@ -532,23 +556,52 @@
         <div class="projects">
             <div class="card" data-aos="fade-up" data-aos-delay="100">
                 <div class="slideshow-container">
-                    <img src="r15-music/playlists.png" alt="R15Music Project" class="active">
+                    <img src=https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=500&auto=format&fit=crop&q=60"
+                        alt="R15Music Project" class="active">
+                    <img src="r15-music/playlists.png" alt="R15Music Project">
                     <img src="r15-music/trending-grid.png" alt="R15Music Project">
                     <img src="r15-music/trending-list.png" alt="R15Music Project">
                 </div>
                 <h3>R15Music</h3>
-                <p>A modern music player application featuring playlists, trending music, and a user-friendly interface.</p>
+                <p>A modern music player application featuring playlists, trending music, and a user-friendly interface.
+                </p>
                 <div class="skill-tags">
                     <span class="skill-tag">React</span>
                     <span class="skill-tag">Node.js</span>
                     <span class="skill-tag">Express</span>
                 </div>
-                <a href="https://github.com/rumoursbehindme/fastify-server" target="_blank" rel="noopener noreferrer" class="github-link">View Project</a>
+                <a href="https://github.com/rumoursbehindme/fastify-server" target="_blank" rel="noopener noreferrer"
+                    class="github-link">View Project</a>
+            </div>
+
+            <div class="card" data-aos="fade-up" data-aos-delay="300">
+                <div class="slideshow-container">
+                    <img src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=500&auto=format&fit=crop&q=60"
+                        alt="Phoenix Fantasy Trading" class="active">
+                    <img src="phoenix/dashboard.png" alt="Phoenix Fantasy Trading">
+                    <img src="phoenix/trading-dashboard.png" alt="Phoenix Fantasy Trading">
+                    <img src="phoenix/profile.png" alt="Phoenix Fantasy Trading">
+                </div>
+                <h3>Phoenix Fantasy Trading</h3>
+                <p>A beautiful and feature-rich fantasy trading platform where users can participate in trading
+                    contests, compete with others, and practice their trading strategies in a risk-free environment.</p>
+                <div class="skill-tags">
+                    <span class="skill-tag">React</span>
+                    <span class="skill-tag">TypeScript</span>
+                    <span class="skill-tag">Supabase</span>
+                    <span class="skill-tag">TailwindCSS</span>
+                    <span class="skill-tag">Real-time Data</span>
+                    <span class="skill-tag">WebSocket</span>
+                </div>
+                <a href="https://phoenix-1.vercel.app/" target="_blank" rel="noopener noreferrer" class="website-link">Go
+                    to website</a>
             </div>
 
             <div class="card" data-aos="fade-up" data-aos-delay="200">
                 <div class="slideshow-container">
-                    <img src="serve-yaml/syc.png" alt="Serve-YAML Project" class="active">
+                    <img src="https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=500&auto=format&fit=crop&q=60"
+                        alt="Serve-YAML Project" class="active">
+                    <img src="serve-yaml/syc.png" alt="Serve-YAML Project">
                     <img src="serve-yaml/syc2.png" alt="Serve-YAML Project">
                     <img src="serve-yaml/syc3.png" alt="Serve-YAML Project">
                 </div>
@@ -559,27 +612,11 @@
                     <span class="skill-tag">NPM Package</span>
                     <span class="skill-tag">YAML</span>
                 </div>
-                <a href="https://github.com/rumoursbehindme/serve-yaml" target="_blank" rel="noopener noreferrer" class="github-link">View Project</a>
+                <a href="https://github.com/rumoursbehindme/serve-yaml" target="_blank" rel="noopener noreferrer"
+                    class="github-link">View Project</a>
             </div>
 
-            <div class="card" data-aos="fade-up" data-aos-delay="300">
-                <div class="slideshow-container">
-                    <img src="phoenix-app/dashboard.png" alt="Phoenix Fantasy Trading" class="active">
-                    <img src="phoenix-app/trades.png" alt="Phoenix Fantasy Trading">
-                    <img src="phoenix-app/portfolio.png" alt="Phoenix Fantasy Trading">
-                </div>
-                <h3>Phoenix Fantasy Trading</h3>
-                <p>A beautiful and feature-rich fantasy trading platform where users can participate in trading contests, compete with others, and practice their trading strategies in a risk-free environment.</p>
-                <div class="skill-tags">
-                    <span class="skill-tag">React</span>
-                    <span class="skill-tag">TypeScript</span>
-                    <span class="skill-tag">Supabase</span>
-                    <span class="skill-tag">TailwindCSS</span>
-                    <span class="skill-tag">Real-time Data</span>
-                    <span class="skill-tag">WebSocket</span>
-                </div>
-                <a href="https://github.com/rumoursbehindme/phoenix-app" target="_blank" rel="noopener noreferrer" class="github-link">View Project</a>
-            </div>
+
         </div>
     </section>
 
@@ -613,8 +650,10 @@
         <div class="experience">
             <div class="card" data-aos="fade-up" data-aos-delay="100">
                 <h3>Software Engineer</h3>
-                <p>Currently working at: <a href="https://www.agilepoint.com/" target="_blank" rel="noopener noreferrer" class="github-link">Agilepoint Software, India Pvt ltd.</a></p>
-                <p>Specializing in backend development using Node.js, Fastify, and TypeScript, with a strong focus on security and performance optimization.</p>
+                <p>Currently working at: <a href="https://www.agilepoint.com/" target="_blank" rel="noopener noreferrer"
+                        class="github-link">Agilepoint Software, India Pvt ltd.</a></p>
+                <p>Specializing in backend development using Node.js, Fastify, and TypeScript, with a strong focus on
+                    security and performance optimization.</p>
                 <div class="skill-tags">
                     <span class="skill-tag">Node.js</span>
                     <span class="skill-tag">Fastify</span>
@@ -680,7 +719,7 @@
         const fullImage = document.getElementById('fullImage');
         const closeModal = document.getElementsByClassName('close')[0];
 
-        profileImage.onclick = function() {
+        profileImage.onclick = function () {
             modal.style.display = "block";
             fullImage.src = profileImage.src;
             setTimeout(() => {
@@ -688,14 +727,14 @@
             }, 10);
         }
 
-        closeModal.onclick = function() {
+        closeModal.onclick = function () {
             modal.classList.remove('show');
             setTimeout(() => {
                 modal.style.display = "none";
             }, 300);
         }
 
-        window.onclick = function(event) {
+        window.onclick = function (event) {
             if (event.target == modal) {
                 modal.classList.remove('show');
                 setTimeout(() => {
@@ -753,7 +792,7 @@
 
         // Smooth Scroll for Navigation Links
         document.querySelectorAll('nav a').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
+            anchor.addEventListener('click', function (e) {
                 e.preventDefault();
                 const targetId = this.getAttribute('href');
                 const targetElement = document.querySelector(targetId);
@@ -768,4 +807,5 @@
         });
     </script>
 </body>
+
 </html>
